@@ -157,7 +157,6 @@ module.exports = {
   '--SearchBar_childZIndex': '1',
   '--SearchBar_mobileTextColor': '#fff',
   '--SearchBar_mobileInputBorderColor': 'rgba(255, 255, 255, 0.3)',
-  '--SearchBar_mobilePlaceholderColor': '#FCFCFC',
   '--SearchBar_mobileBackgroundColor': '#34495e',
   '--SearchBar_mobileButtonBackgroundColor': '#2C3e50',
   '--SearchBar_mobileTriangleSize': '8px',

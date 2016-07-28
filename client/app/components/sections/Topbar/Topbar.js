@@ -295,6 +295,7 @@ class Topbar extends Component {
           locationPlaceholder: t('web.topbar.search_location_placeholder'),
           keywordQuery: this.props.search.keyword_query,
           locationQuery: this.props.search.location_query,
+          customColor: marketplace_color1,
           onSubmit: ({ keywordQuery, locationQuery, place }) => {
             console.log({ // eslint-disable-line no-console
               keywordQuery,

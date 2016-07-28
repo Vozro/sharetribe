@@ -3,6 +3,8 @@
 import { Component, PropTypes } from 'react';
 import { form, input, button, span, div } from 'r-dom';
 import * as placesUtils from '../../../utils/places';
+import { brightness } from '../../../utils/colors';
+import * as variables from '../../../assets/styles/variables';
 
 import css from './SearchBar.css';
 import icon from './images/search-icon.svg';
@@ -130,7 +132,10 @@ class SearchBar extends Component {
     }
   }
   render() {
-    const { mode, keywordPlaceholder, locationPlaceholder, keywordQuery, locationQuery } = this.props;
+    const { mode, keywordPlaceholder, locationPlaceholder, keywordQuery, locationQuery, customColor } = this.props;
+
+    const bgColor = customColor || variables['--SearchBar_mobileBackgroundColor'];
+    const bgColorDarkened = brightness(bgColor, 80);
 
     const keywordInput = input({
       type: 'search',
@@ -178,13 +183,25 @@ class SearchBar extends Component {
       button({
         className: css.mobileToggle,
         onClick: () => this.setState({ mobileMenuOpen: !this.state.mobileMenuOpen }),
-        dangerouslySetInnerHTML: { __html: icon },
-      }),
+      }, [
+        div({
+          dangerouslySetInnerHTML: { __html: icon },
+        }),
+        span({
+          className: css.mobileToggleArrow,
+          style: {
+            borderBottomColor: this.state.mobileMenuOpen ? bgColor : 'transparent',
+          },
+        }),
+      ]),
       form({
         classSet: { [css.form]: true },
         onSubmit: (e) => {
           e.preventDefault();
           this.handleSubmit();
+        },
+        style: {
+          backgroundColor: this.state.mobileMenuOpen ? bgColor : 'transparent',
         },
       }, [
         hasKeywordInput ? keywordInput : null,
@@ -193,6 +210,9 @@ class SearchBar extends Component {
           type: 'submit',
           className: css.searchButton,
           dangerouslySetInnerHTML: { __html: icon },
+          style: {
+            backgroundColor: this.state.mobileMenuOpen ? bgColorDarkened : 'transparent',
+          },
         }),
         span({ className: css.focusContainer }),
       ]),
@@ -207,6 +227,7 @@ SearchBar.propTypes = {
   keywordQuery: PropTypes.string,
   locationQuery: PropTypes.string,
   onSubmit: PropTypes.func.isRequired,
+  customColor: PropTypes.string,
 };
 
 export default SearchBar;
