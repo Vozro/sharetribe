@@ -1,6 +1,7 @@
 import { Component, PropTypes } from 'react';
 import r, { div } from 'r-dom';
 import * as placesUtils from '../../../utils/places';
+import * as urlUtils from '../../../utils/url';
 
 import { t } from '../../../utils/i18n';
 import { routes as routesProp, marketplaceContext } from '../../../utils/PropTypes';
@@ -120,25 +121,9 @@ const DEFAULT_CONTEXT = {
   loggedInUsername: null,
 };
 
-const parseQuery = (searchQuery) => {
-  const parts = (searchQuery || '')
-          .replace(/^\?/, '')
-          .replace(/#.*$/, '')
-          .split('&');
-
-  return parts.reduce((params, keyval) => {
-    const pair = keyval.split('=');
-    const pairLength = 2;
-    if (pair.length === pairLength) {
-      params[pair[0]] = decodeURIComponent(pair[1]); // eslint-disable-line no-param-reassign
-    }
-    return params;
-  }, {});
-};
-
 const currentSearchParams = (searchQuery) => {
   const PARAMS_TO_KEEP = ['view', 'locale'];
-  const parsedParams = parseQuery(searchQuery);
+  const parsedParams = urlUtils.parseQuery(searchQuery);
 
   return Object.keys(parsedParams).reduce((params, key) => {
     if (PARAMS_TO_KEEP.includes(key)) {
@@ -156,6 +141,8 @@ const createQuery = (searchParams) => {
 
   console.log('creating query string from params:', params);
   const paramKeys = Object.keys(params);
+
+  // Sort params for caching
   paramKeys.sort();
 
   return paramKeys.reduce((url, key) => {
