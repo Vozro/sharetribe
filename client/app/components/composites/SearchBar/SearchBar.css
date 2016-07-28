@@ -6,6 +6,15 @@
 
    https://developers.google.com/maps/documentation/javascript/places-autocomplete#style_autocomplete
 */
+.topLevelBody {
+  /* stylelint-disable selector-class-pattern */
+  & :global(.pac-container[style]) {
+    /* Generated autocompletion has inline styles, thus the ugly override.
+       See: https://css-tricks.com/override-inline-styles-with-css/ */
+    min-width: 15em !important;
+  }
+  /* stylelint-enable selector-class-pattern */
+}
 
 /* Used in JavaScript to toggle the mobile menu. */
 .mobileMenuOpen {} /* stylelint-disable-line block-no-empty */

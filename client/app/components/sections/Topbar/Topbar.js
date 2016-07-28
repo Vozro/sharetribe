@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-
 import { Component, PropTypes } from 'react';
 import r, { div } from 'r-dom';
 import * as placesUtils from '../../../utils/places';
@@ -55,8 +53,6 @@ const avatarDropdownProps = (avatarDropdown, customColor, username, isAdmin, not
 
 const LABEL_TYPE_MENU = 'menu';
 const LABEL_TYPE_DROPDOWN = 'dropdown';
-
-const SEARCH_ENABLED = true;
 
 const profileLinks = function profileLinks(username, isAdmin, router, location, customColor, unReadMessagesCount) {
   if (username) {
@@ -288,7 +284,7 @@ class Topbar extends Component {
       this.props.menu ? r(MenuMobile, { ...mobileMenuProps, className: css.topbarMobileMenu }) : null,
       r(Logo, { ...this.props.logo, classSet: css.topbarLogo, color: marketplace_color1 }),
       div({ className: css.topbarMediumSpacer }),
-      SEARCH_ENABLED && this.props.search ?
+      this.props.search ?
         r(SearchBar, {
           mode: this.props.search.mode,
           keywordPlaceholder: t('web.topbar.search_placeholder'),
@@ -297,7 +293,7 @@ class Topbar extends Component {
           locationQuery: this.props.search.location_query,
           customColor: marketplace_color1,
           onSubmit: ({ keywordQuery, locationQuery, place }) => {
-            console.log({ // eslint-disable-line no-console
+            console.log({
               keywordQuery,
               locationQuery,
               coordinates: placesUtils.coordinates(place),
