@@ -3,3 +3,5 @@ machine:
     Europe/Helsinki
   ruby:
     version: ruby-2.3.1
+  environment:
+    TESTING: foobar
