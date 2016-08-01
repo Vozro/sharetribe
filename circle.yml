@@ -22,5 +22,9 @@ test:
     - script/export_routes_js.sh
     - (cd client && npm run build:client && npm run build:server)
   override:
-    - bundle exec rspec
-    - PHANTOMJS=true bundle exec cucumber -p ci
+    - bundle exec rspec --format progress --format RspecJunitFormatter --out $CIRCLE_TEST_REPORTS/rspec.xml:
+      parallel: true
+    - mkdir -p $CIRCLE_TEST_REPORTS/cucumber:
+      parallel: true
+    - PHANTOMJS=true bundle exec cucumber -p ci --format json --out $CIRCLE_TEST_REPORTS/cucumber/tests.cucumber:
+      parallel: true
