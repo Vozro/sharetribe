@@ -13,6 +13,8 @@ dependencies:
   pre:
     - sudo add-apt-repository -y ppa:builds/sphinxsearch-rel22
     - sudo apt-get update && sudo apt-get install -y sphinxsearch
+  bundler:
+    without: [development]
 
 test:
   pre:
