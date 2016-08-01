@@ -22,6 +22,9 @@ test:
     - script/export_routes_js.sh
     - (cd client && npm run build:client && npm run build:server)
   override:
+    - bundle exec rubocop
+    - npm run lint:
+        pwd: client
     - bundle exec rspec --format progress --format RspecJunitFormatter --out $CIRCLE_TEST_REPORTS/rspec.xml:
         parallel: true
     - mkdir -p $CIRCLE_TEST_REPORTS/cucumber:
